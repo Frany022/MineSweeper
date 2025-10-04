@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +11,7 @@ namespace minesweeper
         public int Rows { get; set; }
         public int Columns { get; set; }
         public int Mines { get; set; }
-        private Cell[,] cells { get; set; }
+        public Cell[,] cells { get; set; }
         private Random random = new Random();
 
         public GameField(int rows, int columns, int mines)
@@ -66,13 +66,50 @@ namespace minesweeper
                 (list[i], list[j]) = (list[j], list[i]);
             }
         }
+        public int CountMines()
+        {
+            int count = 0;
+            for (int i = 0; i < Rows; i++)
+            {
+                for (int j = 0; j < Columns; j++)
+                {
+                    if (cells[i, j].IsMine) count++;
+                }
+            }
+            return count;
+        }
 
         private void AdjacentMines() 
         {
             for (int i = 0; i < Rows; i++) 
             {
+                for (int j = 0; j < Columns; j++) 
+                {
+                    if (cells[i, j].IsMine) 
+                    continue;
+                    int count = 0;
+                    for (int dr = -1; dr <= 1; dr++) 
+                    {
+                        for (int dc = -1; dc <= 1; dc++) 
+                        {
+                            int nr = i + dr;
+                            int nc = j + dc;
+                            if (IsInBound(nr, nc) && cells[nr, nc].IsMine) 
+                            {
+                                count++;
+                            }
+                        }
+                    }
+                    cells[i, j].NeighboorMines = count;
 
+                }
             }
         }
+        private bool IsInBound(int r, int c) 
+        {
+            if (r >= 0 && r < Rows && c < Columns && c >= 0)  return true;
+            else return false;
+        }
+
     }
 }
