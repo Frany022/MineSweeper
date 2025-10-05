@@ -9,7 +9,8 @@ namespace minesweeper
     public enum Difficulty 
     {
         Beginner,
-        Intermadiate,
+        Intermediate,
         Expert
     }
 }
+
