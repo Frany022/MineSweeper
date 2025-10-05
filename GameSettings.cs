@@ -14,9 +14,10 @@ namespace minesweeper
             {
                 Difficulty.Beginner => (9, 9, 10),
                 Difficulty.Intermadiate => (16, 16, 40),
-                Difficulty.Expert => (16, 30, 99),
+                Difficulty.Expert => (16, 30, 99), //this one is too big or the UI element is too small
                 _ => (9, 9, 10)
             };
         }
     }
 }
+
